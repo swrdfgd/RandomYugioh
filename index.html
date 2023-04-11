@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Yugioh Cards Generator</title>
+</head>
+
+<body>
+
+Generate a random Yugioh Card.<br /><span><!--more--></span>
+<br />
+
+<button class="button large" onclick="acakkartu()">Generate</button><br /><br />
+
+<div id="kartu"></div>
+
+<script>
+  
+function acakkartu(){
+
+var url = "https://db.ygoprodeck.com/api/v7/randomcard.php"; 
+
+for (let i = 1; i < 41; i++){
+fetch(url)
+    .then(function(response){return response.json();})
+    .then(function(response) {
+        respon = response;
+        randoms = response.card_images;
+            document.getElementById("kartu"+i).innerHTML = "<img width=\"421\" height=\"614\" src='"+randoms[0].image_url+"'>"
+
+    })
+    .catch(function(error){console.log(error);});
+}
+
+}
+  
+
+</script>
+
+<script>
+function createTable()
+{
+    var num_rows = 10;
+    var num_cols = 4;
+    var theader = '<table border="1">\n';
+    var tbody = '';
+    var count = 0
+    
+    
+
+    for( var i=0; i<num_rows;i++)
+    {
+        tbody += '<tr>';
+        for( var j=0; j<num_cols;j++)
+        {
+              count++;
+              tbody += '<td id="kartu'+count+'">';
+              tbody += '';
+              tbody += '</td>'
+
+
+
+        }
+        tbody += '</tr>\n';
+    }
+    var tfooter = '</table>';
+    document.getElementById("kartu").innerHTML = theader + tbody + tfooter;
+}
+  createTable();
+  acakkartu();
+
+</script>
+
+</body>
+</html>
